@@ -1,6 +1,4 @@
-package edu.upc.dsa.models;
-
-import edu.upc.dsa.util.RandomUtils;
+/*package edu.upc.dsa.models;
 
 public class Track {
 
@@ -10,11 +8,11 @@ public class Track {
     static int lastId;
 
     public Track() {
-        this.id = RandomUtils.getId();
     }
 
-    public Track(String title, String singer) {
+    public Track(String id, String title, String singer) {
         this();
+        this.id=id;
         this.setSinger(singer);
         this.setTitle(title);
     }
@@ -49,4 +47,4 @@ public class Track {
         return "Track [id="+id+", title=" + title + ", singer=" + singer +"]";
     }
 
-}
+}*/
