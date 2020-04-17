@@ -51,17 +51,44 @@ public class Covid19ManagerImpl implements Covid19Manager{
     @Override
     public Caso createCaso(String id, String name, String surname, String fechaNacimiento, String fechaCaso, String riskLevel,
                            String gender, String email, String telephone, String direccion, String clasificacion) {
-
-        return null;
+        Caso caso = null;
+        for(Caso c : this.casos){
+            if(c.getId().equals(id)){
+                return null; //El caso ya existe
+            }
+            else{
+                caso = new Caso(id,name,surname,fechaNacimiento,fechaCaso,riskLevel,gender,email,telephone,direccion,clasificacion);
+            }
+        }
+        return caso;
     }
 
     @Override
-    public int addCasoBrote(Caso c) {
-        return 0;
+    public int addCasoBrote(String broteId, String casoId) {
+        Brote brote = brotes.get(broteId);
+        Caso caso = getCaso(casoId);
+        if(brote != null && caso !=null){
+            if(brote.getCasos().add(caso)){
+                logger.info("Caso añadido al brote " + brote.getId() + " : " + caso.getName() + caso.getSurname());
+                return 201; //OK CREATED
+            }
+            else{
+                logger.info("No se ha podido añadir caso "+casoId);
+                return 400; //BAD REQUEST
+            }
+        }
+        else{
+            logger.error("Brote con ID "+broteId+ "o caso con ID "+casoId+" no encontrados");
+            return 404; //NOT FOUND
+        }
     }
 
     @Override
     public List<Caso> getCasesOfBrote(Brote b) {
+        for(Brote brote : this.brotes.values()){
+            if(brotes.get(brote.getId()).equals(b.getId()))
+                return b.getCasos();
+        }
         return null;
     }
 
@@ -89,5 +116,25 @@ public class Covid19ManagerImpl implements Covid19Manager{
     @Override
     public int sizeCasos() {
         return this.casos.size();
+    }
+
+    @Override
+    public Caso getCaso(String id) {
+        for(Caso c: this.casos){
+            if(c.getId().equals(id)){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public List<Caso> getCasos(){
+        return this.casos;
+    }
+
+    @Override
+    public void off() {
+        this.casos.clear();
+        this.brotes.clear();
     }
 }

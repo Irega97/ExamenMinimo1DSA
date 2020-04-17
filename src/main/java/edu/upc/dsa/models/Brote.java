@@ -32,6 +32,14 @@ public class Brote {
         this.casos = casos;
     }
 
+    public void addCaso(Caso c){
+        this.casos.add(c);
+    }
+
+    public int getSizeCasos(){
+        return this.casos.size();
+    }
+
     @Override
     public String toString() {
         return "BROTE: [id = " + this.getId() + "]" ;
