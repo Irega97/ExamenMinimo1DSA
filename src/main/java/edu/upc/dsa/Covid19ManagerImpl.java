@@ -68,7 +68,8 @@ public class Covid19ManagerImpl implements Covid19Manager{
         Brote brote = brotes.get(broteId);
         Caso caso = getCaso(casoId);
         if(brote != null && caso !=null){
-            if(brote.getCasos().add(caso)){
+            boolean add = brote.getCasos().add(caso);
+                if(add==true){
                 logger.info("Caso añadido al brote " + brote.getId() + " : " + caso.getName() + caso.getSurname());
                 return 201; //OK CREATED
             }

@@ -75,7 +75,7 @@ public class Covid19Service {
             @ApiResponse(code = 201, message = "Successful", response = Brote.class, responseContainer="List"),
             @ApiResponse(code = 404, message = "Not Found")
     })
-    @Path("/listUsers")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getBrotes() {
 
